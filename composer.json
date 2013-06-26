@@ -1,0 +1,24 @@
+{
+    "name": "gloomy/twig-decorator-bundle",
+    "description": "A bridge to manage twig layout templates with PHP classes",
+    "type": "symfony-bundle",
+    "keywords": ["twig", "layout", "extends", "decorator", "decorate"],
+    "homepage": "https://github.com/iamluc/GloomyTwigDecoratorBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luc Vieillescazes",
+            "email": "luc@vieillescazes.net"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Gloomy\\TwigDecoratorBundle": ""
+        }
+    },
+    "target-dir": "Gloomy/TwigDecoratorBundle",
+    "minimum-stability": "dev"
+}
