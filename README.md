@@ -85,4 +85,17 @@ MIT
 INSTALLATION
 ------------
 
-*soon*
+### 1. Install with composer
+
+    composer.phar require "gloomy/twig-decorator-bundle" "dev-master"
+
+### 2. Modify your app/AppKernel.php
+
+``` php
+<?php
+    //...
+    $bundles = array(
+        //...
+        new Gloomy\TwigDecoratorBundle\GloomyTwigDecoratorBundle(),
+    );
+```
