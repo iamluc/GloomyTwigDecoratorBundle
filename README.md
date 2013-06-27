@@ -4,7 +4,7 @@ GloomyTwigDecoratorBundle
 ABOUT
 -----
 
-This bundle adds the new {% decorate %} tag that you can use instead of the {% extends %} tag to determine which layout use to extend your template, and inject custom variables to each layout.
+This bundle adds a new {% decorate %} tag that you can use instead of the {% extends %} tag to determine which layout to use to extend your template, and inject custom variables to each layout.
 
 USAGE
 -----
@@ -43,7 +43,7 @@ The bundle comes with 2 decorators:
 
 - XmlHttpRequestDecorator
 
-    This decorator lets you define 2 layouts depending if XmlHttpRequest has been used or not. Then you can choose which variables inject to each.
+    This decorator lets you define 2 layouts depending if XmlHttpRequest has been used or not. Then you can choose which variables to inject into each.
 
     ``` html+django
     {% decorate 'gloomy.decorator.xmlhttprequest' with {
@@ -71,7 +71,7 @@ The bundle comes with 2 decorators:
 EXTEND
 ------
 
-Create your own decorator. It must implements _Gloomy\TwigDecoratorBundle\Decorator\DecoratorInterface_ which has only 2 methods:
+Create your own decorator. It must implement _Gloomy\TwigDecoratorBundle\Decorator\DecoratorInterface_ which has only 2 methods:
 - public function getTemplate(array $variables);
 - public function getVariables(array $variables);
 
