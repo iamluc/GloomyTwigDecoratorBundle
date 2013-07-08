@@ -22,7 +22,7 @@ The bundle comes with 1 grabber:
 - ControllerGrabber
     This grabber will be used only to inject variables inside the template from a controller.
     ``` html+django
-    {% grab 'gloomy.decorator.controller' with {
+    {% grab 'gloomy.grabber.controller' with {
         '_controller': 'MyBundle:MyController:MyMethod',
         'my_own_var': 'cool !'}
     %}
