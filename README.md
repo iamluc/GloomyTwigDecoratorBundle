@@ -20,6 +20,7 @@ USAGE
 
 The bundle comes with 1 grabber:
 - ControllerGrabber
+
     This grabber will be used only to inject variables inside the template from a controller.
     ``` html+django
     {% grab 'gloomy.grabber.controller' with {
@@ -49,6 +50,7 @@ The bundle comes with 1 grabber:
 
 The bundle comes with 2 decorators:
 - ControllerDecorator
+
     This decorator will be used only to inject variables inside the layout from a controller.
     ``` html+django
     {% decorate 'gloomy.decorator.controller' with {
@@ -71,6 +73,7 @@ The bundle comes with 2 decorators:
     ```
 
 - XmlHttpRequestDecorator
+
     This decorator lets you define 2 layouts depending if XmlHttpRequest has been used or not. Then you can choose which variables to inject into each.
     ``` html+django
     {% decorate 'gloomy.decorator.xmlhttprequest' with {
