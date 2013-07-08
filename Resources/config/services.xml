@@ -7,6 +7,8 @@
     <parameters>
         <parameter key="decorate.twig.extension.class">Gloomy\TwigDecoratorBundle\Twig\DecorateExtension</parameter>
 
+        <parameter key="gloomy.grabber.controller.class">Gloomy\TwigDecoratorBundle\Grabber\ControllerGrabber</parameter>
+
         <parameter key="gloomy.decorator.controller.class">Gloomy\TwigDecoratorBundle\Decorator\ControllerDecorator</parameter>
         <parameter key="gloomy.decorator.xmlhttprequest.class">Gloomy\TwigDecoratorBundle\Decorator\XmlHttpRequestDecorator</parameter>
     </parameters>
@@ -15,6 +17,11 @@
         <service id="decorate.twig.extension" class="%decorate.twig.extension.class%">
             <argument type="service" id="service_container"/>
             <tag name="twig.extension" />
+        </service>
+
+        <service id="gloomy.grabber.controller" class="%gloomy.grabber.controller.class%" scope="request">
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="controller_name_converter" />
         </service>
 
         <service id="gloomy.decorator.controller" class="%gloomy.decorator.controller.class%" scope="request">

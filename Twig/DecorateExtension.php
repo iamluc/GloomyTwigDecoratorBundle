@@ -3,7 +3,9 @@
 namespace Gloomy\TwigDecoratorBundle\Twig;
 
 use Gloomy\TwigDecoratorBundle\Twig\TokenParser\DecorateTokenParser;
+use Gloomy\TwigDecoratorBundle\Twig\TokenParser\GrabTokenParser;
 
+use Gloomy\TwigDecoratorBundle\Grabber\GrabberInterface;
 use Gloomy\TwigDecoratorBundle\Decorator\DecoratorInterface;
 
 class DecorateExtension extends \Twig_Extension
@@ -30,18 +32,29 @@ class DecorateExtension extends \Twig_Extension
     public function getTokenParsers()
     {
         return array(
+            new GrabTokenParser(),
             new DecorateTokenParser($this->container, $this),
         );
     }
 
     public function getTemplate($serviceId, $variables)
     {
-        return $this->getDecorator($serviceId)->getTemplate($variables);
+        $service = $this->getService($serviceId);
+        if (!$service instanceof DecoratorInterface) {
+            throw new \Exception('The decorator must implement DecoratorInterface');
+        }
+
+        return $service->getTemplate($variables);
     }
 
     public function getVariables($serviceId, array $variables, \Twig_Template $template)
     {
-        $variables = $this->getDecorator($serviceId)->getVariables($variables);
+        $service = $this->getService($serviceId);
+        if (!$service instanceof DecoratorInterface && !$service instanceof GrabberInterface) {
+            throw new \Exception('The service must implement DecoratorInterface or GrabberInterface');
+        }
+
+        $variables = $service->getVariables($variables);
         if (!is_array($variables)) {
             throw new \Exception('The decorator must return an array');
         }
@@ -51,13 +64,8 @@ class DecorateExtension extends \Twig_Extension
         }
     }
 
-    protected function getDecorator($serviceId)
+    protected function getService($serviceId)
     {
-        $decorator = $this->container->get($serviceId);
-        if (!$decorator instanceof DecoratorInterface) {
-            throw new \Exception('The decorator must implement DecoratorInterface');
-        }
-
-        return $decorator;
+        return $this->container->get($serviceId);
     }
 }
