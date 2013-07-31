@@ -19,17 +19,13 @@ class ControllerDecorator implements DecoratorInterface
 
     public function getTemplate(array $variables)
     {
-        if (!isset($variables['_template'])) {
-            throw new \Exception('The _template variable is required');
-        }
-
-        return $variables['_template'];
+        return isset($variables['_template']) ? $variables['_template'] : null;
     }
 
     public function getVariables(array $variables)
     {
         if (!isset($variables['_controller'])) {
-            throw new \Exception('The _controller variable is required');
+            return $variables;
         }
 
         list($class, $method) = explode('::', $this->parser->parse($variables['_controller']));

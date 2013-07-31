@@ -19,14 +19,9 @@ class XmlHttpRequestDecorator extends ControllerDecorator
 
     public function getTemplate(array $variables)
     {
-        if (!isset($variables['_template'])) {
-            throw new \Exception('The _template variable is required');
-        }
+        $_template       = isset($variables['_template']) ? $variables['_template'] : null;
+        $_xmlhttprequest = isset($variables['_xmlhttprequest']) ? $variables['_xmlhttprequest'] : null;
 
-        if (!isset($variables['_xmlhttprequest'])) {
-            throw new \Exception('The _xmlhttprequest variable is required');
-        }
-
-        return $this->request->isXmlHttpRequest() ? $variables['_xmlhttprequest'] : $variables['_template'];
+        return $this->request->isXmlHttpRequest() ? $_xmlhttprequest : $_template;
     }
 }

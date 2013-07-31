@@ -10,6 +10,8 @@ use Gloomy\TwigDecoratorBundle\Decorator\DecoratorInterface;
 
 class DecorateExtension extends \Twig_Extension
 {
+    const DEFAULT_TEMPLATE = 'GloomyTwigDecoratorBundle::render_blocks.html.twig';
+
     protected $environment;
 
     protected $container;
@@ -44,7 +46,12 @@ class DecorateExtension extends \Twig_Extension
             throw new \Exception('The decorator must implement DecoratorInterface');
         }
 
-        return $service->getTemplate($variables);
+        $template = $service->getTemplate($variables);
+        if (null === $template) {
+            $template = self::DEFAULT_TEMPLATE;
+        }
+
+        return $template;
     }
 
     public function getVariables($serviceId, array $variables, \Twig_Template $template)
@@ -62,6 +69,9 @@ class DecorateExtension extends \Twig_Extension
         foreach ($variables as $name => $value) {
             $template->getEnvironment()->addGlobal($name, $value);
         }
+
+        // list of all blocks to render in self::DEFAULT_TEMPLATE (if the user did not give a template)
+        $template->getEnvironment()->addGlobal('__blocks', $template->getBlockNames());
     }
 
     protected function getService($serviceId)

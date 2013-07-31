@@ -1,6 +1,6 @@
 {
     "name": "gloomy/twig-decorator-bundle",
-    "description": "A bridge to manage twig layout templates with PHP classes",
+    "description": "Twig extension to make conditional layout and to inject variables in templates",
     "type": "symfony-bundle",
     "keywords": ["twig", "layout", "extends", "decorator", "decorate", "grab"],
     "homepage": "https://github.com/iamluc/GloomyTwigDecoratorBundle",

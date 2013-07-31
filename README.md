@@ -98,6 +98,18 @@ The bundle comes with 2 decorators:
         }
     ```
 
+    All parameters are optionals.
+    Without a template, all blocks are printed.
+    ``` html+django
+    {% decorate 'gloomy.decorator.xmlhttprequest' with {
+        '_template': 'MyBundle::layout.html.twig',
+        'my_own_var': 'cool !'} %}
+
+    {% block test %}
+        This block is printed directly if request is xmlHttpRequest, but extends MyBundle::layout.html.twig otherwise
+    {% endblock %}
+    ```
+
 EXTEND
 ------
 
