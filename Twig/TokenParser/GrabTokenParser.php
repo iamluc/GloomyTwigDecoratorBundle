@@ -9,7 +9,7 @@ class GrabTokenParser extends \Twig_TokenParser
     public function parse(\Twig_Token $token)
     {
         list($service, $variables) = $this->parseArguments();
-        return new GrabNode($service, $variables, $token->getLine(), $this->getTag());
+        return new GrabNode($service, $variables, $token->getLine(), $this->getTag(), 'grabber');
     }
 
     protected function parseArguments()

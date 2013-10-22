@@ -13,9 +13,9 @@ USAGE
 
 ### {% grab %}
 ``` html+django
-{% grab 'my_grabber_service' %}
+{% grab 'my_grabber' %}
 {# or #}
-{% grab 'my_grabber_service' with {'var1': 'my_value'} %}
+{% grab 'my_grabber' with {'var1': 'my_value'} %}
 ```
 
 The bundle comes with 1 grabber:
@@ -23,7 +23,7 @@ The bundle comes with 1 grabber:
 
     This grabber will be used only to inject variables inside the template from a controller.
     ``` html+django
-    {% grab 'gloomy.grabber.controller' with {
+    {% grab 'controller' with {
         '_controller': 'MyBundle:MyController:MyMethod',
         'my_own_var': 'cool !'}
     %}
@@ -43,9 +43,9 @@ The bundle comes with 1 grabber:
 
 ### {% decorate %}
 ``` html+django
-{% decorate 'my_decorator_service' %}
+{% decorate 'my_decorator' %}
 {# or #}
-{% decorate 'my_decorator_service' with {'var1': 'my_value'} %}
+{% decorate 'my_decorator' with {'var1': 'my_value'} %}
 ```
 
 The bundle comes with 2 decorators:
@@ -53,7 +53,7 @@ The bundle comes with 2 decorators:
 
     This decorator will be used only to inject variables inside the layout from a controller.
     ``` html+django
-    {% decorate 'gloomy.decorator.controller' with {
+    {% decorate 'controller' with {
         '_controller': 'MyBundle:MyController:MyMethod',
         '_template': 'MyBundle::layout.html.twig',
         'my_own_var': 'cool !'}
@@ -76,7 +76,7 @@ The bundle comes with 2 decorators:
 
     This decorator lets you define 2 layouts depending if XmlHttpRequest has been used or not. Then you can choose which variables to inject into each.
     ``` html+django
-    {% decorate 'gloomy.decorator.xmlhttprequest' with {
+    {% decorate 'xmlhttprequest' with {
         '_controller': 'MyBundle:MyController:MyMethod',
         '_template': 'MyBundle::layout.html.twig',
         '_xmlhttprequest': 'MyBundle::xmlhttprequest.html.twig',
@@ -124,7 +124,10 @@ Your class must implement _Gloomy\TwigDecoratorBundle\Decorator\DecoratorInterfa
 - public function getTemplate(array $variables);
 - public function getVariables(array $variables);
 
-Then define a service and use it as the first argument of the {% grab %} or {% decorate %} tag.
+Then define a tagged service and use it as the first argument of the {% grab %} or {% decorate %} tag.
+The tag can be :
+    <tag name="gloomy.grabber" alias="my_alias"/>
+    <tag name="gloomy.decorator" alias="my_alias"/>
 
 LICENSE
 -------

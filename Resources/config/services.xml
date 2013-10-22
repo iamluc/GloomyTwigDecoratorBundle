@@ -16,22 +16,33 @@
     <services>
         <service id="decorate.twig.extension" class="%decorate.twig.extension.class%">
             <argument type="service" id="service_container"/>
+            <!-- All services with tag "gloomy.grabber" are inserted here by DecoratorPass -->
+            <argument type="collection" />
+            <!-- All services with tag "gloomy.decorator" are inserted here by DecoratorPass -->
+            <argument type="collection" />
+
             <tag name="twig.extension" />
         </service>
 
         <service id="gloomy.grabber.controller" class="%gloomy.grabber.controller.class%" scope="request">
             <argument type="service" id="service_container"/>
             <argument type="service" id="controller_name_converter" />
+
+            <tag name="gloomy.grabber" alias="controller"/>
         </service>
 
         <service id="gloomy.decorator.controller" class="%gloomy.decorator.controller.class%" scope="request">
             <argument type="service" id="service_container"/>
             <argument type="service" id="controller_name_converter" />
+
+            <tag name="gloomy.decorator" alias="controller"/>
         </service>
         <service id="gloomy.decorator.xmlhttprequest" class="%gloomy.decorator.xmlhttprequest.class%" scope="request">
             <argument type="service" id="service_container"/>
             <argument type="service" id="controller_name_converter" />
             <argument type="service" id="request" />
+
+            <tag name="gloomy.decorator" alias="xmlhttprequest"/>
         </service>
     </services>
 

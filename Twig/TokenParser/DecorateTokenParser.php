@@ -32,7 +32,7 @@ class DecorateTokenParser extends GrabTokenParser
             );
         $this->parser->setParent($parent);
 
-        return new GrabNode($service, $variables, $token->getLine(), $this->getTag());
+        return new GrabNode($service, $variables, $token->getLine(), $this->getTag(), 'decorator');
     }
 
     public function getTag()

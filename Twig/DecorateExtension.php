@@ -15,10 +15,14 @@ class DecorateExtension extends \Twig_Extension
     protected $environment;
 
     protected $container;
+    protected $grabbers;
+    protected $decorators;
 
-    public function __construct($container)
+    public function __construct($container, $grabbers, $decorators)
     {
-        $this->container = $container;
+        $this->container  = $container;
+        $this->grabbers   = $grabbers;
+        $this->decorators = $decorators;
     }
 
     public function initRuntime(\Twig_Environment $environment)
@@ -41,7 +45,7 @@ class DecorateExtension extends \Twig_Extension
 
     public function getTemplate($serviceId, $variables)
     {
-        $service = $this->getService($serviceId);
+        $service = $this->getService($serviceId, 'decorator');
         if (!$service instanceof DecoratorInterface) {
             throw new \Exception('The decorator must implement DecoratorInterface');
         }
@@ -54,9 +58,9 @@ class DecorateExtension extends \Twig_Extension
         return $template;
     }
 
-    public function getVariables($serviceId, array $variables, \Twig_Template $template)
+    public function getVariables($serviceId, array $variables, \Twig_Template $template, $serviceType)
     {
-        $service = $this->getService($serviceId);
+        $service = $this->getService($serviceId, $serviceType);
         if (!$service instanceof DecoratorInterface && !$service instanceof GrabberInterface) {
             throw new \Exception('The service must implement DecoratorInterface or GrabberInterface');
         }
@@ -74,8 +78,17 @@ class DecorateExtension extends \Twig_Extension
         $template->getEnvironment()->addGlobal('__blocks', $template->getBlockNames());
     }
 
-    protected function getService($serviceId)
+    protected function getService($serviceId, $serviceType)
     {
+        if ('decorator' === $serviceType && isset($this->decorators[$serviceId])) {
+            return $this->container->get($this->decorators[$serviceId]);
+        }
+
+        if ('grabber' === $serviceType && isset($this->grabbers[$serviceId])) {
+            return $this->container->get($this->decorators[$serviceId]);
+        }
+
+        // Compatibily with old versions
         return $this->container->get($serviceId);
     }
 }
