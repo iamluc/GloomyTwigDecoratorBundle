@@ -1,3 +1,5 @@
 {% for block in __blocks %}
-    {{ block(block) }}
+    {% if _blocks is not defined or block in _blocks %}
+        {{ block(block) }}
+    {% endif %}
 {% endfor %}

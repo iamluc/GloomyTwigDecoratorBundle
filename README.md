@@ -49,7 +49,7 @@ The bundle comes with 1 grabber:
 ```
 
 The bundle comes with 2 decorators:
-- ControllerDecorator
+- controller
 
     This decorator will be used only to inject variables inside the layout from a controller.
     ``` html+django
@@ -72,7 +72,7 @@ The bundle comes with 2 decorators:
         }
     ```
 
-- XmlHttpRequestDecorator
+- xmlhttprequest
 
     This decorator lets you define 2 layouts depending if XmlHttpRequest has been used or not. Then you can choose which variables to inject into each.
     ``` html+django
@@ -99,14 +99,32 @@ The bundle comes with 2 decorators:
     ```
 
     All parameters are optionals.
-    Without a template, all blocks are printed.
+    Without the _xmlhttprequest parameter, all blocks are printed by default.
+
     ``` html+django
-    {% decorate 'gloomy.decorator.xmlhttprequest' with {
+    {% decorate 'xmlhttprequest' with {
         '_template': 'MyBundle::layout.html.twig',
         'my_own_var': 'cool !'} %}
 
     {% block test %}
         This block is printed directly if request is xmlHttpRequest, but extends MyBundle::layout.html.twig otherwise
+    {% endblock %}
+    ```
+
+    You can choose the blocks you want to display with the _blocks parameter
+
+    ``` html+django
+    {% decorate 'xmlhttprequest' with {
+        '_template': 'MyBundle::layout.html.twig',
+        '_blocks': ['test']
+        'my_own_var': 'cool !'} %}
+
+    {% block test %}
+        This block is printed if request is xmlHttpRequest, but extends MyBundle::layout.html.twig otherwise
+    {% endblock %}
+
+    {% block test_not_printed %}
+        This block is NOT printed if request is xmlHttpRequest, but extends MyBundle::layout.html.twig otherwise
     {% endblock %}
     ```
 
@@ -126,8 +144,10 @@ Your class must implement _Gloomy\TwigDecoratorBundle\Decorator\DecoratorInterfa
 
 Then define a tagged service and use it as the first argument of the {% grab %} or {% decorate %} tag.
 The tag can be :
+```
     <tag name="gloomy.grabber" alias="my_alias"/>
     <tag name="gloomy.decorator" alias="my_alias"/>
+```
 
 LICENSE
 -------
@@ -139,7 +159,7 @@ INSTALLATION
 
 ### 1. Install with composer
 
-    composer.phar require "gloomy/twig-decorator-bundle" "dev-master"
+    composer.phar require "gloomy/twig-decorator-bundle" "*"
 
 ### 2. Modify your app/AppKernel.php
 
