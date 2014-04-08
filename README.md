@@ -8,6 +8,8 @@ This bundle adds 2 tags in twig:
 - {% grab %} which injects variables into the template
 - {% decorate %} that you can use instead of the {% extends %} tag to determine which layout to use to extend your template, and inject custom variables to each layout.
 
+[![Build Status](https://api.travis-ci.org/iamluc/GloomyTwigDecoratorBundle.png?branch=master)](https://travis-ci.org/iamluc/GloomyTwigDecoratorBundle) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/6bc5679f-b0b0-457f-8ca9-c81ebfb47172/mini.png)](https://insight.sensiolabs.com/projects/6bc5679f-b0b0-457f-8ca9-c81ebfb47172) [![Total Downloads](https://poser.pugx.org/gloomy/twig-decorator-bundle/downloads.png)](https://packagist.org/packages/gloomy/twig-decorator-bundle)
+
 USAGE
 -----
 
